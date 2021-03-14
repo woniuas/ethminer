@@ -373,7 +373,7 @@ public:
 
 
         // Exception handling is held at higher level
-        app.parse(argc, param);
+        app.parse(argc, argv);
         if (bhelp)
         {
             help();
