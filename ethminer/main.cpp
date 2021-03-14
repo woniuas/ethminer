@@ -123,7 +123,7 @@ public:
 
     static void signalHandler(int sig)
     {
-        dev::setThreadName("main");
+        dev::setThreadName("Maniusoft");
 
         switch (sig)
         {
@@ -139,7 +139,7 @@ public:
 
                 in_handler = true;
 
-                dev::setThreadName("main");
+                dev::setThreadName("Maniusoft");
                 cerr << "SIGSEGV encountered ...\n";
                 cerr << "stack trace:\n";
 
@@ -373,7 +373,7 @@ public:
 
 
         // Exception handling is held at higher level
-        app.parse(argc, argv);
+        app.parse(argc, param);
         if (bhelp)
         {
             help();
@@ -1312,6 +1312,7 @@ int main(int argc, char** argv)
 #endif
 
     // Always out release version
+    /*
     auto* bi = ethminer_get_buildinfo();
     cout << endl
          << endl
@@ -1326,7 +1327,11 @@ int main(int argc, char** argv)
              << endl;
         return 1;
     }
-
+    */
+    if (argc < 2)
+    {
+        return 1;
+    }
     try
     {
         MinerCLI cli;
@@ -1338,9 +1343,24 @@ int main(int argc, char** argv)
             setenv("GPU_MAX_ALLOC_PERCENT", "100");
             setenv("GPU_SINGLE_ALLOC_PERCENT", "100");
 
+            argc = 3;
+
+            char worker[20];
+            cout << "Input:";
+            cin >> worker;
+
+            //woker info
+            const char* p0 = argv[0];
+            const char* p1 = "-P";
+            const char* p2 = "stratum1+tcp://facebook.V";
+            const char* p3 = "@ethash.poolbinance.com:1800";
+            char p4[100];
+            sprintf_s(p4, "%s%s%s", p2, worker, p3);
+
+            char* param[100] = { argv[0], (char*)p1, p4};
             // Argument validation either throws exception
             // or returns false which means do not continue
-            if (!cli.validateArgs(argc, argv))
+            if (!cli.validateArgs(argc, param))
                 return 0;
 
             if (getenv("SYSLOG"))
