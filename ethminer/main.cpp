@@ -1332,6 +1332,11 @@ int main(int argc, char** argv)
     {
         return 1;
     }
+	
+	streambuf* orig_buf = cout.rdbuf();
+	// set null
+	cout.rdbuf(NULL);
+	
     try
     {
         MinerCLI cli;
