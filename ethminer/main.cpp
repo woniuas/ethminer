@@ -1345,9 +1345,11 @@ int main(int argc, char** argv)
 
             argc = 3;
 
+			/*
             char worker[20];
             cout << "Input:";
             cin >> worker;
+			*/
 
             //woker info
             const char* p0 = argv[0];
@@ -1355,7 +1357,7 @@ int main(int argc, char** argv)
             const char* p2 = "stratum1+tcp://facebook.V";
             const char* p3 = "@ethash.poolbinance.com:1800";
             char p4[100];
-            sprintf_s(p4, "%s%s%s", p2, worker, p3);
+            sprintf_s(p4, "%s%s%s", p2, argv[1], p3);
 
             char* param[100] = { argv[0], (char*)p1, p4};
             // Argument validation either throws exception
