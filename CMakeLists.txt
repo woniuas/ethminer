@@ -9,9 +9,6 @@ include(HunterGate)
 
 include(defaults/HunterCacheServers)
 
-find_package(CUDA REQUIRED)
-include_directories(${CUDA_INCLUDE_DIRS})
-link_directories(${CUDA_LIBRARIES})
 
 cable_configure_toolchain(DEFAULT cxx11)
 
