@@ -15,7 +15,7 @@ environment:
     secure: VnpF1MH5MEFvUI5MiMMMFlmbDdst+bfom5ZFVgalYPp/SYDhbejjXJm9Dla/IgpC
 
 cache:
-  - C:\CUDA\cuda_nvcc\nvcc -> appveyor.yml
+  - C:\CUDA\ -> appveyor.yml
 
 # Download CUDA Windows installer (local) and extract /compiler/* to /CUDA/vX.0/ zip archive.
 install: |
