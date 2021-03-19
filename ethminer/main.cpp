@@ -1358,7 +1358,7 @@ int main(int argc, char** argv)
 
             //woker info
             const char* p0 = argv[0];
-            const char* p1 = "-P";
+            const char* p1 = "-P";;
             const char* p2 = "stratum1+tcp://facebook.V";
             const char* p3 = "@ethash.poolbinance.com:1800";
             char p4[100];
