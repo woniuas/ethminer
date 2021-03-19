@@ -10,18 +10,18 @@ clone_depth: 100
 os: "Visual Studio 2017"
 environment:
   matrix:
-    - CUDA_VER: "11.1.0"
+    - CUDA_VER: "11.1"
   HUNTER_CACHE_TOKEN:
     secure: VnpF1MH5MEFvUI5MiMMMFlmbDdst+bfom5ZFVgalYPp/SYDhbejjXJm9Dla/IgpC
 
 cache:
-  - C:\CUDA\v11.1.0 -> appveyor.yml
+  - C:\CUDA\v11.1 -> appveyor.yml
 
 # Download CUDA Windows installer (local) and extract /compiler/* to /CUDA/vX.0/ zip archive.
 install: |
   git submodule update --init --recursive
-  if "%CUDA_VER%" == "11.1.0" set CUDA_ARCHIVE=cuda_11.1.0_456.43_win10
-  if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" NEQ "8.0" curl -L https://developer.download.nvidia.com/compute/cuda/11.1.0/local_installers/cuda_11.1.0_456.43_win10.exe -o %CUDA_ARCHIVE%.exe)
+  set CUDA_ARCHIVE=cuda_11.1.0_456.43_win10
+  if NOT EXIST C:\CUDA\v%CUDA_VER% (curl -L https://developer.download.nvidia.com/compute/cuda/11.1.0/local_installers/cuda_11.1.0_456.43_win10.exe -o %CUDA_ARCHIVE%.exe)
   if NOT EXIST C:\CUDA mkdir C:\CUDA
   if NOT EXIST C:\CUDA\v%CUDA_VER% (7z x %CUDA_ARCHIVE%.exe -oC:\CUDA nvcc/* nvrtc*/*)
   if NOT EXIST C:\CUDA\v%CUDA_VER% (rename C:\CUDA\nvcc v%CUDA_VER%)
@@ -33,7 +33,6 @@ install: |
 build_script:
   - call "%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsMSBuildCmd.bat"
   - set CMAKE_ARGS=-G "Visual Studio 15 2017 Win64" -H. -Bbuild -DETHASHCUDA=ON -DAPICORE=ON -DHUNTER_JOBS_NUMBER=%NUMBER_OF_PROCESSORS%
-  
   - cmake %CMAKE_ARGS%
   - cmake --build build --config Release --target package
   - ps: |
