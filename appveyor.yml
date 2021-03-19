@@ -15,7 +15,7 @@ environment:
     secure: VnpF1MH5MEFvUI5MiMMMFlmbDdst+bfom5ZFVgalYPp/SYDhbejjXJm9Dla/IgpC
 
 cache:
-  - C:\CUDA\v11.1 -> appveyor.yml
+  - C:\CUDA\cuda_nvcc\nvcc -> appveyor.yml
 
 # Download CUDA Windows installer (local) and extract /compiler/* to /CUDA/vX.0/ zip archive.
 install: |
@@ -31,7 +31,7 @@ install: |
 
 build_script:
   - call "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\Tools\VsMSBuildCmd.bat"
-  - set CMAKE_ARGS=-G "Visual Studio 16 2019 Win64" -H. -Bbuild -DETHASHCUDA=ON -DAPICORE=ON -DHUNTER_JOBS_NUMBER=%NUMBER_OF_PROCESSORS%
+  - set CMAKE_ARGS=-G "Visual Studio 16 2019" -H. -Bbuild -DETHASHCUDA=ON -DAPICORE=ON -DHUNTER_JOBS_NUMBER=%NUMBER_OF_PROCESSORS%
   - cmake %CMAKE_ARGS%
   - cmake --build build --config Release --target package
   - ps: |
