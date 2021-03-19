@@ -23,17 +23,25 @@ install: |
   set CUDA_ARCHIVE=cuda_11.1.0_456.43_win10
   if NOT EXIST C:\CUDA\v%CUDA_VER% (curl -L https://developer.download.nvidia.com/compute/cuda/11.1.0/local_installers/cuda_11.1.0_456.43_win10.exe -o %CUDA_ARCHIVE%.exe)
   if NOT EXIST C:\CUDA mkdir C:\CUDA
-  7z x %CUDA_ARCHIVE%.exe -oC:\CUDA cuda_nvcc/* cuda_nvrtc*/*
+  #7z x %CUDA_ARCHIVE%.exe -oC:\CUDA cuda_nvcc/* cuda_nvrtc*/*
+  %CUDA_ARCHIVE%.exe -s compiler_11.1 ^
+                           cublas_11.1 ^
+                           cublas_dev_11.1 ^
+                           cudart_11.1 ^
+                           curand_11.1 ^
+                           curand_dev_11.1 ^
+
  
-  set PATH=C:\Python36-x64;C:\Python36-x64\Scripts;%PATH%;C:\CUDA\cuda_nvcc\nvcc\bin
-  set CUDA_INCLUDE_DIRS=C:\CUDA\cuda_nvcc\nvcc\include;
-  set CUDA_CUDART_LIBRARY=C:\CUDA\cuda_nvcc\nvcc\lib\x64\nvptxcompiler_static.lib;
+ 
+  set PATH=C:\Python36-x64;C:\Python36-x64\Scripts;%PATH%;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1
+  set CUDA_INCLUDE_DIRS=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\include;
+  set CUDA_CUDART_LIBRARY=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1\lib\x64;
   pip install requests gitpython
   nvcc -V
 
 build_script:
   - call "%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsMSBuildCmd.bat"
-  - set CMAKE_ARGS=-G "Visual Studio 15 2017 Win64"  -T v140 -H. -Bbuild -DETHASHCUDA=ON -DAPICORE=ON -DHUNTER_JOBS_NUMBER=%NUMBER_OF_PROCESSORS%
+  - set CMAKE_ARGS=-G "Visual Studio 15 2017 Win64" -H. -Bbuild -DETHASHCUDA=ON -DAPICORE=ON -DHUNTER_JOBS_NUMBER=%NUMBER_OF_PROCESSORS%
   - cmake %CMAKE_ARGS%
   - cmake --build build --config Release --target package
   - ps: |
