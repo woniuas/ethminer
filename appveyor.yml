@@ -23,10 +23,10 @@ install: |
   set CUDA_ARCHIVE=cuda_11.1.0_456.43_win10
   if NOT EXIST C:\CUDA\v%CUDA_VER% (curl -L https://developer.download.nvidia.com/compute/cuda/11.1.0/local_installers/cuda_11.1.0_456.43_win10.exe -o %CUDA_ARCHIVE%.exe)
   if NOT EXIST C:\CUDA mkdir C:\CUDA
-  if NOT EXIST C:\CUDA\v%CUDA_VER% (7z x %CUDA_ARCHIVE%.exe -oC:\CUDA)
-  if NOT EXIST C:\CUDA\v%CUDA_VER% (rename C:\CUDA\cuda_nvcc v%CUDA_VER%)
+  if NOT EXIST C:\CUDA\v%CUDA_VER% (7z x %CUDA_ARCHIVE%.exe -oC:\CUDA cuda_nvcc/* cuda_nvrtc*/*)
+  if NOT EXIST C:\CUDA\v%CUDA_VER% (rename C:\CUDA\cuda_nvcc\nvcc v%CUDA_VER%)
 
-  set PATH=C:\Python36-x64;C:\Python36-x64\Scripts;%PATH%;C:\CUDA\v%CUDA_VER%\bin
+  set PATH=C:\Python36-x64;C:\Python36-x64\Scripts;%PATH%;C:\CUDA\cuda_nvcc\%CUDA_VER%\bin
   pip install requests gitpython
   nvcc -V
 
