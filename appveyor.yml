@@ -27,7 +27,7 @@ install: |
  
   set PATH=C:\Python36-x64;C:\Python36-x64\Scripts;%PATH%;C:\CUDA\cuda_nvcc\nvcc\bin
   set CUDA_INCLUDE_DIRS=C:\CUDA\cuda_nvcc\nvcc\include;
-  set CUDA_CUDART_LIBRARY=C:\CUDA\cuda_nvcc\nvcc\lib\x64;
+  set CUDA_CUDART_LIBRARY=C:\CUDA\cuda_nvcc\nvcc\lib\x64\nvptxcompiler_static.lib;
   pip install requests gitpython
   nvcc -V
 
