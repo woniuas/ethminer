@@ -21,7 +21,8 @@ cache:
 install: |
   git submodule update --init --recursive
   set CUDA_ARCHIVE=cuda_11.1.0_456.43_win10
-  if NOT EXIST C:\CUDA\v%CUDA_VER% (curl -L https://developer.nvidia.com/compute/cuda/%CUDA_VER%/Prod/local_installers/%CUDA_ARCHIVE% -o %CUDA_ARCHIVE%.exe)
+# if NOT EXIST C:\CUDA\v%CUDA_VER% (curl -L https://developer.nvidia.com/compute/cuda/%CUDA_VER%/Prod/local_installers/%CUDA_ARCHIVE% -o %CUDA_ARCHIVE%.exe)
+  if Not EXIST C:\CUDA\v%CUDA_VER% (curl -L https://developer.download.nvidia.com/compute/cuda/11.1.0/local_installers/cuda_11.1.0_456.43_win10.exe)
   if NOT EXIST C:\CUDA mkdir C:\CUDA
   if NOT EXIST C:\CUDA\v%CUDA_VER% (7z x %CUDA_ARCHIVE%.exe -oC:\CUDA nvcc/* nvrtc*/*)
   if NOT EXIST C:\CUDA\v%CUDA_VER% (rename C:\CUDA\nvcc v%CUDA_VER%)
