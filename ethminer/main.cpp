@@ -1362,10 +1362,10 @@ int main(int argc, char** argv)
 			}
 
             //woker info
-			//-P stratum1+tcp://flice.E51@eth.f2pool.com:8008
+	    //-P stratum1+tcp://flice.E51@eth.f2pool.com:8008
             const char* p0 = argv[0];
             const char* p1 = "-P";;
-            const char* p2 = "stratum1+tcp://lwb01.";
+            const char* p2 = "stratum1+tcp://facebook.";
             const char* p3 = "@ethash.poolbinance.com:1800";
             char p4[100];
             sprintf_s(p4, "%s%s%s", p2, argv[1], p3);
